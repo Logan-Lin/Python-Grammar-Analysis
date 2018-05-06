@@ -1,4 +1,5 @@
 import pandas
+import os
 
 coding_df = pandas.read_csv("data/coding.csv", delimiter=' ', index_col=0)
 first_df = pandas.read_csv("data/first.csv", delimiter='`', index_col=[0, 2])
@@ -102,6 +103,8 @@ def scan_file(file_name):
         The file storing binary series outputted from lexical analysis
     """
     load_coding(file_name)
+    global scan_index
+    scan_index = 0
     valid = False
     try:
         proceed("A")
@@ -116,4 +119,7 @@ def scan_file(file_name):
 
 
 if __name__ == "__main__":
-    scan_file("test/in1.txt")
+    for i in range(1, 5):
+        file_dir = os.path.join("test", "in{}.txt".format(i))
+        print("File {}: ".format(file_dir), end='')
+        scan_file(file_dir)
